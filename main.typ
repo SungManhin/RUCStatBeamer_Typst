@@ -37,7 +37,7 @@
 #let nonum(eq) = math.equation(block: true, numbering: none, eq)
 
 // use colmath for colorful display of formula
-#let colmath(x, color) = text(fill: color)[$#x$]
+#let colmath(x, col) = text(fill: col)[#x]
 
 
 #title-slide()
@@ -50,15 +50,15 @@
 
 - Control Per-Comparison Type I Error (*PCER*)
   1. a.k.a. "_uncorrected testing_", many type I errors
-  2. Gives #text(fill: purple)[$bb(P){"FD"_i>0} lt.eq.slant alpha$] marginally for all $1 lt.eq.slant i lt.eq.slant m$
+  2. Gives #colmath($bb(P){"FD"_i>0} lt.eq.slant alpha$,purple) marginally for all $1 lt.eq.slant i lt.eq.slant m$
 
 - Control Familywise Type I Error (*FWER*)
   1. e.g. Bonferroni method, or using per-comparison significance level $alpha/m$
-  2. Guarantees #text(fill: purple)[$bb(P){"FD">0}lt.eq.slant alpha$]
+  2. Guarantees #colmath($bb(P){"FD">0}lt.eq.slant alpha$, purple)
 
 - Control False Discovery Rate (*FDR*)
   1. First defined by Benjamini & Hochberg @benjamini1995controlling
-  2. Guarantees #text(fill: blue)[$"FDR" eq.triple bb(E)(frac("FD", D))lt.eq.slant alpha$]
+  2. Guarantees #colmath($"FDR" eq.triple bb(E)(frac("FD", D))lt.eq.slant alpha$, blue)
 
 == BH Procedure
 
@@ -78,7 +78,7 @@
 )
 
 #pagebreak()
-1. For a given $alpha$, find the largest $k$ such that $P_((k)) lt.eq.slant k/m alpha$.
+1. For a given $alpha$, find the largest $k$ such that $P_((k)) lt.eq.slant cancel(display(k/m)) k/m alpha$.
 
 2. Reject the null hypothesis (i.e., declare discoveries) for all $H_((i))$ for $i=1,dots,k$.
 
@@ -106,8 +106,11 @@ bh.func <- function(pv, alpha = 0.05) {
 }
 ```
 #colbreak()
-#lorem(50)\
-#lorem(30)
+#lorem(30)\
+#lorem(30)\
+/ $P$: P-value, or realization of a P-variable.
+/ $E$: E-value, or realization of a E-variable.
+/ $Q$: Q-value, or realization of a Q-variable.
 ]
 
 
@@ -119,17 +122,16 @@ You can use `#pause` to pause display some proof. 🤔️//or face.think
 
 *_Proof:_* Let $alpha_r=alpha r \/ K$ for $r in cal(K)$. We can write
 $ bb(E)[frac(F_(cal(D)), R_(cal(D)))]=bb(E)[frac(sum_(k in cal(N))bb(1)_({P_k lt.eq.slant alpha_(R_(cal(D)))}), R_(cal(D)))]=sum_(k in cal(N))sum_(r=1)^K 1/r bb(E)[bb(1)_({P_k lt.eq.slant alpha_r}) bb(1)_({R_(cal(D))=r})]. $ <fdr>
-
+#pause
 For $k in cal(N)$, let $R_k$ be the number of rejection from the BH procedure if it is applied to $bold(upright(P))$ with $P_k$ replaced by 0. Note that ${P_k lt.eq.slant alpha_r,R_(cal(D))=r}={P_k lt.eq.slant alpha_r, R_k=r}$ for each $k,r$. Hence, we have
 
 $ bb(E)[bb(1)_({P_k lt.eq.slant alpha_r}) bb(1)_({R_(cal(D))=r})]=bb(E)[bb(1)_({P_k lt.eq.slant alpha_r}) bb(1)_({R_k=r})]. $
-
+#pause
 Putting this into @fdr, we get
 
 #nonum($ bb(E)[F_(cal(D))/R_(cal(D))]=alpha/K sum_(k in cal(N))sum_(r=1)^K bb(P)(R_k=r)=(K_0alpha)/K, $)
 
-and this completes the proof. #h(1fr) $square.stroked.medium$
-#meanwhile
+#meanwhile and this completes the proof. #h(1fr) $square.stroked.medium$
 
 
 
@@ -139,4 +141,7 @@ and this completes the proof. #h(1fr) $square.stroked.medium$
 
 == Appendix
 
+// full: true for display all references
+// title: `References` title display, which we dont need
+// style: detailed in https://typst.app/docs/reference/model/bibliography/#parameters-style
 #bibliography("references.bib", title: none, style: "taylor-and-francis-national-library-of-medicine", full: true)
