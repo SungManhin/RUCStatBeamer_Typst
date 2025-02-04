@@ -11,7 +11,7 @@
   config-info(
     title: [RUCStatBeamer—Typst Template],
     subtitle: [Make your slides with Typst],
-    author: [Song Wenxuan],
+    author: [Sung Manhin],
     date: datetime.today(),
     institution: [Renmin University of China],
     logo: image("figures/RUC_stat_logo.png", width: 8mm),
@@ -50,7 +50,7 @@
 
 - Control Per-Comparison Type I Error (*PCER*)
   1. a.k.a. "_uncorrected testing_", many type I errors
-  2. Gives #colmath($bb(P){"FD"_i>0} lt.eq.slant alpha$,purple) marginally for all $1 lt.eq.slant i lt.eq.slant m$
+  2. Gives #colmath($bb(P){"FD"_i>0} lt.eq.slant alpha$,purple) marginally for all $1 lt.eq.slant i lt.eq.slant m$ 
 
 - Control Familywise Type I Error (*FWER*)
   1. e.g. Bonferroni method, or using per-comparison significance level $alpha/m$
